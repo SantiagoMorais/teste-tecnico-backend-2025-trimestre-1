@@ -1,0 +1,34 @@
+{
+  "name": "teste-tecnico-backend-2025-trimestre-1",
+  "version": "1.0.0",
+  "description": "Teste técnico para a posição de Backend Dev. Edição do primeiro trimestre de 2025.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SantiagoMorais/teste-tecnico-backend-2025-trimestre-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SantiagoMorais/teste-tecnico-backend-2025-trimestre-1/issues"
+  },
+  "homepage": "https://github.com/SantiagoMorais/teste-tecnico-backend-2025-trimestre-1#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.2",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.15.3",
+    "@types/redis": "^4.0.10",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
