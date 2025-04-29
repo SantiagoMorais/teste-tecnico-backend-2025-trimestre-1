@@ -6,7 +6,7 @@ export class RedisVideoRepository implements IVideoRepository {
 
   constructor() {
     this.client = createClient({
-      url: "redis://localhost:6379",
+      url: "redis://cache:6379",
     });
     this.client.on("error", (err) => console.error("Redis Client Error", err));
     this.client.connect();
