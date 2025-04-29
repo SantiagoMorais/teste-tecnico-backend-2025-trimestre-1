@@ -7,7 +7,10 @@ import { VideoController } from "../controllers/video-controller";
 import { UploadVideoUseCase } from "@/use-cases/upload-video-use-case";
 import { StreamVideoUseCase } from "@/use-cases/stream-video-use-case";
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
+
 const router = Router();
 
 const videoRepository = new VideoRepository(

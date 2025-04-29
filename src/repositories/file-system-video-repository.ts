@@ -14,8 +14,7 @@ export class FileSystemVideoRepository implements IVideoRepository {
     try {
       await fs.access(this.uploadDir);
     } catch (err) {
-      await fs.mkdir(this.uploadDir);
-      console.log(`Upload folder created at ${this.uploadDir}`);
+      await fs.mkdir(this.uploadDir, { recursive: true });
     }
   }
 
@@ -26,6 +25,13 @@ export class FileSystemVideoRepository implements IVideoRepository {
     filename: string;
     buffer: Buffer;
   }): Promise<void> {
+    try {
+      await this.ensureUploadDirExists();
+      await fs.writeFile(path.join(this.uploadDir, filename), buffer);
+    } catch (error) {
+      console.error("Erro ao persistir vídeo:", error);
+      throw new Error("Error saving the file into the system");
+    }
     await fs.writeFile(path.join(this.uploadDir, filename), buffer);
   }
 

@@ -18,6 +18,14 @@ export class VideoController {
         return res.status(400).json({ error: "No file uploaded" });
       }
 
+      if (!req.file.mimetype.startsWith("video/")) {
+        throw new InvalidFileTypeError();
+      }
+
+      if (req.file.size > 10 * 1024 * 1024) {
+        throw new FileTooLargeError(10);
+      }
+
       await this.uploadVideoUseCase.execute({
         file: {
           originalname: req.file.originalname,
@@ -29,7 +37,14 @@ export class VideoController {
 
       return res.status(204).send();
     } catch (error) {
-      return this.handleUploadError(error, res);
+      if (error instanceof InvalidFileTypeError) {
+        return res.status(400).json({ error: error.message });
+      }
+      if (error instanceof FileTooLargeError) {
+        return res.status(400).json({ error: error.message });
+      }
+      console.error("Erro interno:", error);
+      return res.status(500).json({ error: "Erro interno no servidor" });
     }
   }
 
@@ -71,7 +86,9 @@ export class VideoController {
 
   private handleUploadError(error: unknown, res: Response): Response {
     if (error instanceof InvalidFileTypeError) {
-      return res.status(400).json({ error: error.message });
+      return res
+        .status(400)
+        .json({ error: error.message, code: "INVALID_FILE_TYPE" });
     }
 
     if (error instanceof FileTooLargeError) {
